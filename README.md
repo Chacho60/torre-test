@@ -10,25 +10,25 @@ The basic reasoning of this little site is to be an index with data gethered fro
 
 ## **Infinite Scroll**
 
-Infinite scroll was implemented using javascript event listeners, on `componentDidMount()`, it listens  for the `scroll` event on browser and checks if it is at the bottom of the page. If that's true it fires up `addPokemon` which adds another 20 cards into the App
+Infinite scroll was implemented using javascript event listeners, on `componentDidMount()`, it listens  for the `scroll` event on browser and checks if it is at the bottom of the page. If that's true it fires up `getPeople` which adds another 15 cards into the App
 
 ```
 handleScroll = (e) =>{
     // Detect when scrolled to bottom
     if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-      this.addPokemon();
+      this.getPeople();
     }
   }
 
-.
-.
-.
-
   componentDidMount() {
-    if (this.state.pokemon.length === 0) this.addPokemon();
+
+    if (this.state.people.length === 0) this.getPeople(); 
     window.addEventListener("scroll", this.handleScroll)
-    window.addEventListener("touchend", this.handleScroll)
     
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener("scroll");
   }
 ```
 
