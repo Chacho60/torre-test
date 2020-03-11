@@ -17,15 +17,17 @@ class ExtendedCard extends React.Component {
       fetch(`https://search.torre.co/opportunities/_search/?&aggregate=false&offset=${offset}&size=500`, {method: "POST"})
       .then(res => res.json())
       .then(results => {
-        let opportunityData = results.results.map(opportunity => {
+        let data = results.results.filter(opportunity => opportunity.organizations[0])
+        let opportunityData = data.map(opportunity => {
           return({
-            name: opportunity.objective || 'empty',
-            org:opportunity.organizations[0].name || 'empty',
-            picture: opportunity.organizations[0].picture || 'https://p7.hiclipart.com/preview/655/656/917/computer-icons-briefcase-suitcase-suit-work-office-icon-thumbnail.jpg',
+            name: opportunity.objective,
+            org: opportunity.organizations[0].name,
+            picture: opportunity.organizations[0].picture,
             skillset: opportunity.skills
           })
         })
         
+        console.log(opportunityData);
         opportunityData.forEach( element => {
           element.skills = element.skillset.map(skill =>{
             return(skill.name);
